@@ -9,10 +9,13 @@ module.exports = class Parser {
                 const tmp = JSON.parse(obj);
                 switch (tmp) {
                     case Request.isRequest(tmp):
+                        Request.isValidRequest(tmp);
                         return new Request(tmp);
                     case Response.isResponse(tmp):
+                        Response.isValidResponse(tmp);
                         return new Response(tmp);
                     case Notification.isNotification(tmp):
+                        Notification.isValidNotification(tmp);
                         return new Notification(tmp);
                 }
             } catch (e) {

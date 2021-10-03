@@ -10,21 +10,23 @@ module.exports = class Response {
         if(!req) {
             return false;
         }
-        return !!(req.jsonrpc && req.id && (req.error || req.result) && this._isValidResponse(req));
+        return !!(req.jsonrpc && req.id && (req.error || req.result));
     }
 
-    static _isValidResponse(req) {
+    static isValidResponse(req) {
         if(req.jsonrpc === '2.0' && typeof req.id === 'number' && req.id > 0) {
-            if(req.result) {
-                return true;
-            } else if (req.error) {
-                const {code, message} = req.error;
-                if(code && message && typeof code === 'number' && typeof message === 'string'){
-                    return  true;
+            if(req.result || req.error) {
+                if(req.error){
+                    const {code, message} = req.error;
+                    if(!(code && message && typeof code === 'number' && typeof message === 'string')){
+                        throw new Error("Invalid error object in Response");
+                    }
                 }
+            } else {
+                throw new Error("Invalid Response");
             }
-            return  false;
+        } else {
+            throw new Error("Invalid Response");
         }
-        return false;
     }
 }

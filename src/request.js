@@ -9,10 +9,12 @@ module.exports = class Request {
         if(!req) {
             return false;
         }
-        return !!(req.jsonrpc && req.method && req.id && req.params && this._isValidRequest(req));
+        return !!(req.jsonrpc && req.method && req.id && req.params);
     }
-    static _isValidRequest(req){
-        return !!(req.jsonrpc === '2.0' && typeof req.method === 'string' && typeof req.params === 'object'
-            && typeof req.id === 'number' && req.id > 0 );
+    static isValidRequest(req){
+        if(!(req.jsonrpc === '2.0' && typeof req.method === 'string' && typeof req.params === 'object'
+            && typeof req.id === 'number' && req.id > 0 )){
+            throw new Error("Invalid Request");
+        }
     }
 }

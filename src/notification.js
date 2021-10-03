@@ -8,9 +8,11 @@ module.exports = class Notification {
         if(!req) {
             return false;
         }
-        return !!(req.jsonrpc && req.method && req.params && this._isValidNotification());
+        return !!(req.jsonrpc && req.method && req.params);
     }
-    static _isValidNotification(req){
-        return req.jsonrpc === '2.0' && typeof req.method === 'string' && typeof req.params === 'object';
+    static isValidNotification(req){
+        if(!(req.jsonrpc === '2.0' && typeof req.method === 'string' && typeof req.params === 'object')){
+            throw new Error("Invalid Notification");
+        }
     }
 }
