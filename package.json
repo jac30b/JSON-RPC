@@ -1,6 +1,6 @@
 {
-  "name": "json-rpc",
-  "version": "1.0.0",
+  "name": "json-rpc-jg",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {

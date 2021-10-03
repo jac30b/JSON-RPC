@@ -3,7 +3,8 @@ const {Response} = require('./response');
 const {Notification} = require('./notification');
 
 module.exports = class Parser {
-    parse(obj) {
+    constructor(){}
+    static parse(obj) {
         if (obj && typeof obj === 'string') {
             try {
                 const tmp = JSON.parse(obj);
